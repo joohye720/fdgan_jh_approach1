@@ -1,0 +1,1 @@
+-b 64 -j 4 -d sysumm01 -a resnet50  --lr 0.0001 --epochs 100 --step-size 40 --eval-step 5 --logs-dir ./logs_stage1_fakeir
