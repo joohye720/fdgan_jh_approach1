@@ -1,7 +1,6 @@
 ![Python 3](https://img.shields.io/badge/python-3-green.svg) ![Pytorch 0.3](https://img.shields.io/badge/pytorch-0.3-blue.svg)
 # RGB-IR Cross-Modality Person Re-Identification with Pose-transferred Image Generation
 
-<p align="center"><img src='framework.jpg' width="600px"></p>
 
 [JOO-HYE PARK](Department of Mechanical Engineering, Korea Advanced Institute of Science and Technology (KAIST), Daejeon 34141, South Korea (e-mail: weetweet720@gmail.com))\, [DONG-SOO KWON](Department of Mechanical Engineering, Korea Advanced Institute of Science and Technology (KAIST), Daejeon 34141, South Korea (e-mail: kwonds@kaist.ac.kr)\
 
@@ -39,6 +38,7 @@ cd fdgan_jh_approach1/
 The following training stages instruction is based on FDGAN training.
 
 ### Stage I: reID baseline pretraining
+<p align="center"><img src='approach1-stage1.png' width="600px"></p>
 We use a Siamese baseline structure based on `ResNet-50`. You can train the model with follow commands,
 ```
 python baseline.py -b 256 -j 4 -d SYSY-MM01 -a resnet50 --combine-trainval \
