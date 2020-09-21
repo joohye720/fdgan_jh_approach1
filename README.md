@@ -12,7 +12,7 @@ Pytorch implementation for our master theis research. With the two-generator bas
 
 ## Getting Started
 ## RGB to IR image translation 
-<p align="center"><img src='IR-genertor.png' width="600px"></p>
+<p align="center"><img src='IR-generator.png' width="600px"></p>
 - In two separate generators-based approach, there is an IR generator that converts the modality from RGB to IR.
 - The pixel alignment module of AlignGAN was utilized for IR generator.
 
@@ -37,7 +37,8 @@ cd fdgan_jh_approach1/
 
 ## Usage
 The following training stages instruction is based on FDGAN training.
-<p align="center"><img src='approach1-stage1.png' width="600px"></p>
+<img src='approach1-stage1.png' width="600px">
+
 ### Stage I: reID baseline pretraining
 We use a Siamese baseline structure based on `ResNet-50`. You can train the model with follow commands,
 ```
