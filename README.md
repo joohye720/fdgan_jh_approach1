@@ -23,8 +23,8 @@ pip install scipy, pillow, torchvision, sklearn, h5py, dominate, visdom
 ```
 - Clone this repo:
 ```
-git clone https://github.com/yxgeee/FD-GAN
-cd FD-GAN/
+git clone https://github.com/joohye720/fdgan_jh_approach1.git
+cd fdgan_jh_approach1/
 ```
 
 ### Datasets
@@ -46,21 +46,17 @@ python baseline.py -b 256 -j 4 -d SYSY-MM01 -a resnet50 --combine-trainval \
 					--logs-dir /path/to/save/checkpoints/
 ```
 You can train it on specified GPUs by setting `CUDA_VISIBLE_DEVICES`, and change the dataset name `[SYSY-MM01]` after `-d` to train models on different datasets.  
-#Or you can download the pretrained baseline model directly following the link below,
-#- Market1501_baseline_model: [[Google Drive]](https://drive.google.com/open?id=1oNLf-gazgfN0EqkdIOKtcJSBx22BuO1-) [[Baidu Pan]]##(https://pan.baidu.com/s/1H0SNJmaM9GmYN2WE6W60Hw)
-#- DukeMTMC_baseline_model: [[Google Drive]](https://drive.google.com/open?id=1iVXIaXT6WQzKuLD3eDcBZB-3aNeZ6Ivf) [[Baidu Pan]](https://pan.baidu.com/s/1CCFjy9We7F9ZHpdTL65vxQ)
-#- CUHK03_baseline_model: [[Google Drive]](https://drive.google.com/open?id=1jubhvKl_Ny9b89wbX0-u2GhPEeXMLaUQ) [[Baidu Pan]](https://pan.baidu.com/s/1wtyfhiyxx6jWapMyR5x0Ig)
 
 <a name="stageI"></a>And **test** them with follow commands,
 ```
-python baseline.py -b 256 -d market1501 -a resnet50 --evaluate --resume /path/of/model_best.pth.tar
+python baseline.py -b 256 -d SYSY-MM01 -a resnet50 --evaluate --resume /path/of/model_best.pth.tar
 ```
 
 ### Stage II: FD-GAN pretraining
 We need to pretain FD-GAN with the image encoder part (*E* in the original paper and *net_E* in the code) fixed first. You can train the model with follow commands,
 ```
 python train.py --display-port 6006 --display-id 1 \
-	--stage 1 -d market1501 --name /directory/name/of/saving/checkpoints/ \
+	--stage 1 -d SYSY-MM01 --name /directory/name/of/saving/checkpoints/ \
 	--pose-aug gauss -b 256 -j 4 --niter 50 --niter-decay 50 --lr 0.001 --save-step 10 \
 	--lambda-recon 100.0 --lambda-veri 0.0 --lambda-sp 10.0 --smooth-label \
 	--netE-pretrain /path/of/model_best.pth.tar
@@ -73,12 +69,6 @@ You can train it on specified GPUs by setting `CUDA_VISIBLE_DEVICES`. For main a
 - `--smooth-label`: smooth the label of GANloss or not. 
 
 Other arguments can be viewed in [options.py](https://github.com/yxgeee/FD-GAN/blob/master/fdgan/options.py).
-Also you can directly download the models for stage II,
-- Market1501_stageII_model: [[Google Drive]](https://drive.google.com/open?id=1kIBuPzz-Ig70dE3rU-5-kyo3nGJP01NS) [[Baidu Pan]](https://pan.baidu.com/s/1X7T2yJPclZNzY4Bhr_wuuQ)
-- DukeMTMC_stageII_model: [[Google Drive]](https://drive.google.com/open?id=1dD1cbg2jo5qhPbkMbsRYACRcVMrm28-o) [[Baidu Pan]](https://pan.baidu.com/s/17wELt0YdjTVzEbe_gRu60A)
-- CUHK03_stageII_model: [[Google Drive]](https://drive.google.com/open?id=1552oDot-vgA27b-mCspJAuzaOl685koz) [[Baidu Pan]](https://pan.baidu.com/s/1pWmc8fNgC2xjDxM2Gb-pYA)
-
-There are four models in each directory for separate nets.
 
 **Notice**: 
 If you use `visdom` for visualization by setting `--display-id 1`, you need to open a new window and run the script `python -m visdom.server -port=6006` before running the main program, where `-port` should be consistent with `--display-port`. 
@@ -87,7 +77,7 @@ If you use `visdom` for visualization by setting `--display-id 1`, you need to o
 Finetune the whole framework by optimizing all parts. You can train the model with follow commands,
 ```
 python train.py --display-port 6006 --display-id 1 \
-	--stage 2 -d market1501 --name /directory/name/of/saving/checkpoints/ \
+	--stage 2 -d SYSY-MM01 --name /directory/name/of/saving/checkpoints/ \
 	--pose-aug gauss -b 256 -j 4 --niter 25 --niter-decay 25 --lr 0.0001 --save-step 10 --eval-step 5 \
 	--lambda-recon 100.0 --lambda-veri 10.0 --lambda-sp 10.0 --smooth-label \
 	--netE-pretrain /path/of/100_net_E.pth --netG-pretrain /path/of/100_net_G.pth \
@@ -95,11 +85,6 @@ python train.py --display-port 6006 --display-id 1 \
 ```
 You can train it on specified GPUs by setting `CUDA_VISIBLE_DEVICES`.  
 We trained this model on a setting of batchsize 256. If you don't have such or better hardware, you may decrease the batchsize (the performance may also drop).
-Or you can directly download our final model,
-- Market1501_stageIII_model: [[Google Drive]](https://drive.google.com/open?id=1w8xqopW0icA3VIxZyelI9k-Fb8rRCME7) [[Baidu Pan]](https://pan.baidu.com/s/1JE3Mwh0CxQ5EKkzLr7nEPg)
-- DukeMTMC_stageIII_model: [[Google Drive]](https://drive.google.com/open?id=1axBHUcI7JmPbw8Y_mSpMKWIY9FUfFKMI) [[Baidu Pan]](https://pan.baidu.com/s/1tBF67qZrDmSgxOKENjUdFQ)
-- CUHK03_stageIII_model: [[Google Drive]](https://drive.google.com/open?id=1q6HkDlDUIV9YNUwAggy-HI9zYQjt7Ihk) [[Baidu Pan]](https://pan.baidu.com/s/1fUaNTlOXjtEUQSq217X25Q)
-
 And **test** `best_net_E.pth` by the same way as mentioned in [Stage I](#stageI).
 
 ## TODO
