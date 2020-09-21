@@ -3,21 +3,22 @@
 
 <p align="center"><img src='framework.jpg' width="600px"></p>
 
-[[Paper]](http://papers.nips.cc/paper/7398-fd-gan-pose-guided-feature-distilling-gan-for-robust-person-re-identification.pdf)
+[JOO-HYE PARK](Department of Mechanical Engineering, Korea Advanced Institute of Science and Technology (KAIST), Daejeon 34141, South Korea (e-mail: weetweet720@gmail.com))\, [DONG-SOO KWON](Department of Mechanical Engineering, Korea Advanced Institute of Science and Technology (KAIST), Daejeon 34141, South Korea (e-mail: kwonds@kaist.ac.kr)\
 
-[Yixiao Ge](mailto:yxge@link.cuhk.edu.hk)\*, [Zhuowan Li](mailto:zli110@jhu.edu)\*, [Haiyu Zhao](mailto:zhaohaiyu@sensetime.com), [Guojun Yin](mailto:gjyin@mail.ustc.edu.cn), [Shuai Yi](mailto:yishuai@sensetime.com), [Xiaogang Wang](mailto:xgwang@ee.cuhk.edu.hk), and [Hongsheng Li](mailto:hsli@ee.cuhk.edu.hk)  
-Neural Information Processing Systems (**NIPS**), 2018 (* equal contribution)
+Pytorch implementation for our master theis research. With the two-generator based proposed approah :  we are able to learn **identity-related** and **modality and pose-unrelated** representations.
 
-Pytorch implementation for our NIPS 2018 work. With the proposed siamese structure, we are able to learn **identity-related** and **pose-unrelated** representations.
-
-### News
-- Baidu Pan links of datasets and pretrained models have been updated.
+## Dataset
+- SYSU-MM01 pedestrian multi modality public dataset
+- It contains both RGB images and IR images per one identity
 
 ## Prerequisites
 - Python 3
 - [Pytorch](https://pytorch.org/) (We run the code under version 0.3.1, maybe lower versions also work.)
 
 ## Getting Started
+## RGB to IR image translation 
+- In two separate generators-based approach, there is an IR generator that converts the modality from RGB to IR.
+- The pixel alignment module of AlignGAN was utilized for IR generator.
 
 ### Installation
 - Install dependencies (e.g., [visdom](https://github.com/facebookresearch/visdom) and [dominate](https://github.com/Knio/dominate)). You can install all the dependencies by:
@@ -111,20 +112,10 @@ Or you can directly download our final model,
 And **test** `best_net_E.pth` by the same way as mentioned in [Stage I](#stageI).
 
 ## TODO
+- generate IR images from RGB to IR image translation
 - scripts for generate pose landmarks.
 - generate specified images.
 
-## Citation
-Please cite our paper if you find the code useful for your research.
-```
-@inproceedings{ge2018fd,
-  title={FD-GAN: Pose-guided Feature Distilling GAN for Robust Person Re-identification},
-  author={Ge, Yixiao and Li, Zhuowan and Zhao, Haiyu and Yin, Guojun and Yi, Shuai and Wang, Xiaogang and Li, Hongsheng},
-  booktitle={Advances in Neural Information Processing Systems},
-  pages={1229--1240},
-  year={2018}
-}
-```
 
 ## Acknowledgements
-Our code is inspired by [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) and [open-reid](https://github.com/Cysu/open-reid).
+Our code is inspired by [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) and [open-reid](https://github.com/Cysu/open-reid) and FD-GAN(https://github.com/yxgeee/FD-GAN).
