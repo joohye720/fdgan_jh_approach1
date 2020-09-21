@@ -7,10 +7,6 @@
 
 Pytorch implementation for our master theis research. With the two-generator based proposed approah :  we are able to learn **identity-related** and **modality and pose-unrelated** representations.
 
-## Dataset
-- SYSU-MM01 pedestrian multi modality public dataset
-- It contains both RGB images and IR images per one identity
-
 ## Prerequisites
 - Python 3
 - [Pytorch](https://pytorch.org/) (We run the code under version 0.3.1, maybe lower versions also work.)
@@ -32,33 +28,28 @@ cd FD-GAN/
 ```
 
 ### Datasets
-We conduct experiments on [Market1501](http://www.liangzheng.org/Project/project_reid.html), [DukeMTMC-reID](https://github.com/layumi/DukeMTMC-reID_evaluation), [CUHK03](http://www.ee.cuhk.edu.hk/~xgwang/CUHK_identification.html) datasets. We need pose landmarks for each dataset during training, so we generate the pose files by [Realtime Multi-Person Pose Estimation](https://github.com/tensorboy/pytorch_Realtime_Multi-Person_Pose_Estimation). And the raw datasets have been preprocessed by the code in [open-reid](https://github.com/Cysu/open-reid). 
-Download the prepared datasets following below steps:
-- Create directories for datasets:
-```
-mkdir datasets
-cd datasets/
-```
-- Download these datasets through the links below, and `unzip` them in the same root path.  
-*Market1501*: [[Google Drive]](https://drive.google.com/open?id=1LS5_bMqv-37F14FVuziK63gz0wPyb0Hh) [[Baidu Pan]](https://pan.baidu.com/s/13C7zcELYzd-5EnjAeDcX9A)  
-*DukeMTMC-reID*: [[Google Drive]](https://drive.google.com/open?id=1Ujtm-Cq7lpyslBkG-rSBjkP1KVntrgSL) [[Baidu Pan]](https://pan.baidu.com/s/1B52P9RzTXv0JLmfmiA3aKg)  
-*CUHK03*: [[Google Drive]](https://drive.google.com/open?id=1R7oCwyMHYIxpRVsYm7-2REmFopP9TSXL) [[Baidu Pan]](https://pan.baidu.com/s/1zH2jcEa_igC7Lzgts4FwVQ)  
+- The SYSU-MM01 dataset is an RGB-Infrared (IR) multi-modality pedestrian dataset for cross-modality person re-identification
+- It contains both RGB images and IR images per one identity
+- Pose landmarks is need for training, so we generate the pose files by [Realtime Multi-Person Pose Estimation](https://github.com/tensorboy/pytorch_Realtime_Multi-Person_Pose_Estimation). And the raw datasets have been preprocessed by the code in [open-reid](https://github.com/Cysu/open-reid). 
+- Download the SYSU-MM01 datasets through the links below, and `unzip` them in the same root path.  
+*SYSY-MM01*: [[dropbox]](https://www.dropbox.com/sh/v036mg1q4yg7awb/AABhxU-FJ4X2oyq7-Ts6bgD0a?dl=0) [[Baidu Pan]](http://pan.baidu.com/s/1gfIlcmZ)  
+
 
 ## Usage
-As mentioned in the original [paper](https://arxiv.org/abs/1810.02936), there are three stages for training our proposed framework.
+The following training stages instruction is based on FDGAN training.
 
 ### Stage I: reID baseline pretraining
 We use a Siamese baseline structure based on `ResNet-50`. You can train the model with follow commands,
 ```
-python baseline.py -b 256 -j 4 -d market1501 -a resnet50 --combine-trainval \
+python baseline.py -b 256 -j 4 -d SYSY-MM01 -a resnet50 --combine-trainval \
 					--lr 0.01 --epochs 100 --step-size 40 --eval-step 5 \
 					--logs-dir /path/to/save/checkpoints/
 ```
-You can train it on specified GPUs by setting `CUDA_VISIBLE_DEVICES`, and change the dataset name `[market1501|dukemtmc|cuhk03]` after `-d` to train models on different datasets.  
-Or you can download the pretrained baseline model directly following the link below,
-- Market1501_baseline_model: [[Google Drive]](https://drive.google.com/open?id=1oNLf-gazgfN0EqkdIOKtcJSBx22BuO1-) [[Baidu Pan]](https://pan.baidu.com/s/1H0SNJmaM9GmYN2WE6W60Hw)
-- DukeMTMC_baseline_model: [[Google Drive]](https://drive.google.com/open?id=1iVXIaXT6WQzKuLD3eDcBZB-3aNeZ6Ivf) [[Baidu Pan]](https://pan.baidu.com/s/1CCFjy9We7F9ZHpdTL65vxQ)
-- CUHK03_baseline_model: [[Google Drive]](https://drive.google.com/open?id=1jubhvKl_Ny9b89wbX0-u2GhPEeXMLaUQ) [[Baidu Pan]](https://pan.baidu.com/s/1wtyfhiyxx6jWapMyR5x0Ig)
+You can train it on specified GPUs by setting `CUDA_VISIBLE_DEVICES`, and change the dataset name `[SYSY-MM01]` after `-d` to train models on different datasets.  
+#Or you can download the pretrained baseline model directly following the link below,
+#- Market1501_baseline_model: [[Google Drive]](https://drive.google.com/open?id=1oNLf-gazgfN0EqkdIOKtcJSBx22BuO1-) [[Baidu Pan]]##(https://pan.baidu.com/s/1H0SNJmaM9GmYN2WE6W60Hw)
+#- DukeMTMC_baseline_model: [[Google Drive]](https://drive.google.com/open?id=1iVXIaXT6WQzKuLD3eDcBZB-3aNeZ6Ivf) [[Baidu Pan]](https://pan.baidu.com/s/1CCFjy9We7F9ZHpdTL65vxQ)
+#- CUHK03_baseline_model: [[Google Drive]](https://drive.google.com/open?id=1jubhvKl_Ny9b89wbX0-u2GhPEeXMLaUQ) [[Baidu Pan]](https://pan.baidu.com/s/1wtyfhiyxx6jWapMyR5x0Ig)
 
 <a name="stageI"></a>And **test** them with follow commands,
 ```
