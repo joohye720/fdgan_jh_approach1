@@ -37,9 +37,12 @@ cd fdgan_jh_approach1/
 
 ## Usage
 The following training stages instruction is based on FDGAN training.
-<img src='approach1-stage1.png' width="600px">
+
 
 ### Stage I: reID baseline pretraining
+
+<p align="center"><img src='approach1-stage1.png' width="600px">
+	
 We use a Siamese baseline structure based on `ResNet-50`. You can train the model with follow commands,
 ```
 python baseline.py -b 256 -j 4 -d SYSY-MM01 -a resnet50 --combine-trainval \
@@ -53,7 +56,11 @@ You can train it on specified GPUs by setting `CUDA_VISIBLE_DEVICES`, and change
 python baseline.py -b 256 -d SYSY-MM01 -a resnet50 --evaluate --resume /path/of/model_best.pth.tar
 ```
 
+	
 ### Stage II: FD-GAN pretraining
+
+<p align="center"><approach1-stage2.png' width="600px">
+
 <img src='approach1-stage2.png' width="600px">
 We need to pretain FD-GAN with the image encoder part (*E* in the original paper and *net_E* in the code) fixed first. You can train the model with follow commands,
 ```
@@ -76,7 +83,9 @@ Other arguments can be viewed in [options.py](https://github.com/yxgeee/FD-GAN/b
 If you use `visdom` for visualization by setting `--display-id 1`, you need to open a new window and run the script `python -m visdom.server -port=6006` before running the main program, where `-port` should be consistent with `--display-port`. 
 
 ### Stage III: Global finetuning
-<img src='approach1-stage3.png' width="600px">
+
+<p align="center"><approach1-stage3.png' width="600px">
+	
 Finetune the whole framework by optimizing all parts. You can train the model with follow commands,
 ```
 python train.py --display-port 6006 --display-id 1 \
