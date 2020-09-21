@@ -54,7 +54,7 @@ python baseline.py -b 256 -d SYSY-MM01 -a resnet50 --evaluate --resume /path/of/
 ```
 
 ### Stage II: FD-GAN pretraining
-<p align="center"><img src='approach1-stage2.png' width="600px"></p>
+<p align="center"><img src='approach1-stage2.png' width="600px">
 We need to pretain FD-GAN with the image encoder part (*E* in the original paper and *net_E* in the code) fixed first. You can train the model with follow commands,
 ```
 python train.py --display-port 6006 --display-id 1 \
