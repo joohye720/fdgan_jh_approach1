@@ -2,7 +2,7 @@
 # RGB-IR Cross-Modality Person Re-Identification with Pose-transferred Image Generation
 
 
-[JOO-HYE PARK](Department of Mechanical Engineering, Korea Advanced Institute of Science and Technology (KAIST), Daejeon 34141, South Korea (e-mail: weetweet720@gmail.com))\, [DONG-SOO KWON](Department of Mechanical Engineering, Korea Advanced Institute of Science and Technology (KAIST), Daejeon 34141, South Korea (e-mail: kwonds@kaist.ac.kr)\
+[JOO-HYE PARK](Department of Mechanical Engineering, Korea Advanced Institute of Science and Technology (KAIST), Daejeon 34141, South Korea (e-mail: weetweet720@gmail.com))\, 
 
 Pytorch implementation for our master theis research. With the two-generator based proposed approah :  we are able to learn **identity-related** and **modality and pose-unrelated** representations.
 
