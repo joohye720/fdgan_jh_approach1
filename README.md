@@ -54,7 +54,7 @@ python baseline.py -b 256 -d SYSY-MM01 -a resnet50 --evaluate --resume /path/of/
 ```
 
 ### Stage II: FD-GAN pretraining
-<p align="center"><img src='approach1-stage2.png' width="600px">
+<img src='approach1-stage2.png' width="600px">
 We need to pretain FD-GAN with the image encoder part (*E* in the original paper and *net_E* in the code) fixed first. You can train the model with follow commands,
 ```
 python train.py --display-port 6006 --display-id 1 \
@@ -76,7 +76,7 @@ Other arguments can be viewed in [options.py](https://github.com/yxgeee/FD-GAN/b
 If you use `visdom` for visualization by setting `--display-id 1`, you need to open a new window and run the script `python -m visdom.server -port=6006` before running the main program, where `-port` should be consistent with `--display-port`. 
 
 ### Stage III: Global finetuning
-<p align="center"><img src='approach1-stage3.png' width="600px"></p>
+<img src='approach1-stage3.png' width="600px">
 Finetune the whole framework by optimizing all parts. You can train the model with follow commands,
 ```
 python train.py --display-port 6006 --display-id 1 \
