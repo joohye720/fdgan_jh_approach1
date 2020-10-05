@@ -73,7 +73,7 @@ def get_data(name, split_id, data_dir, height, width, batch_size, workers,
 
 def main(args):
     np.random.seed(args.seed)
-    torch.manual_seed(args.seed)
+    torch.manual_seed(args.seed) #for unchanged results
     cudnn.benchmark = True
 
     # Redirect print to both console and log file
@@ -95,8 +95,8 @@ def main(args):
     # Create model
     base_model = models.create(args.arch, cut_at_pooling=True)
     embed_model = EltwiseSubEmbed(use_batch_norm=True, use_classifier=True,
-                                      num_features=2048, num_classes=2)
-    model = SiameseNet(base_model, embed_model)
+                                      num_features=2048, num_classes=2) #2048 dimension feature element wise substraction --> classification same or not 
+    model = SiameseNet(base_model, embed_model) #making two branch
     model = nn.DataParallel(model).cuda()
 
     # Evaluator
@@ -104,6 +104,7 @@ def main(args):
         torch.nn.DataParallel(base_model).cuda(),
         embed_model,
         embed_dist_fn=lambda x: F.softmax(Variable(x), dim=1).data[:, 0])
+    
     for i in ([62]):
        checkpoint = load_checkpoint(osp.join(args.logs_dir, 'checkpoint_%i.pth.tar'%i))
       # checkpoint = load_checkpoint(osp.join(args.logs_dir, 'model_best.pth.tar'))
